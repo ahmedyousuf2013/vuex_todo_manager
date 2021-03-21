@@ -4,19 +4,17 @@ import store from './store'
 import VeeValidate from "vee-validate";
 
 import VueRouter from 'vue-router';
-import HomePage from './components/Homepage.vue'
-import Aboutus from './components/Aboutus.vue'
+import routes from "./routes";
+
+
 Vue.use(VeeValidate);
 
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-mode:"history",
+  mode: "history",
 
-  routes: [{ path: "/", component: HomePage },
-  { path: "/about", component: Aboutus }
-  ]
-
+  routes: routes
 })
 
 Vue.config.productionTip = false
