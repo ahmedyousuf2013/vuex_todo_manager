@@ -1,28 +1,32 @@
 <template>
   <div id="app">
     <div class="container">
-    <AddTodo/>
+    <!-- <AddTodo/>
     <FilterTodos/>
    
 
-    
+     <Todos/> -->
+     <RegisterForm />
 
     </div>
-  <Todos/>
+ 
   </div>
 </template>
 
 <script>
-import Todos from './components/Todos.vue';
-import AddTodo from './components/AddTodo.vue';
-import FilterTodos  from './components/FilterToDos.vue';
+// import Todos from './components/Todos.vue';
+// import AddTodo from './components/AddTodo.vue';
+// import FilterTodos  from './components/FilterToDos.vue';
+
+import  RegisterForm from './components/RegisterForm';
 
 export default {
   name: 'App',
   components: {
-    Todos,
-    AddTodo,
-    FilterTodos
+    // Todos,
+    // AddTodo,
+    // FilterTodos
+   RegisterForm
   
   }
 }
