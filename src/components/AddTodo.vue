@@ -9,6 +9,12 @@
           id=""
           v-model="title"
           placeholder="Add Todo..."
+
+
+
+
+
+
         />
         <input type="submit" value="Submit" />
       </form>
