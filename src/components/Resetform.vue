@@ -13,10 +13,6 @@
 <span v-show="errors.has('password_confirmation')" class="help is-danger">{{ errors.first('password_confirmation') }}</span>
 
 
-
-
-
-
   <div class="form__line"><input v-model="name" name="name" type="text" /></div>
   <div class="form__line"><input v-model="email" name="email" type="email" /></div>
   <div class="form__line"><button>Submit</button></div>
