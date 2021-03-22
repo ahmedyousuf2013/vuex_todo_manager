@@ -10,15 +10,19 @@
       <!-- <Resetform/> -->
       <!-- <HomePage />
      <Aboutus /> -->
+     <nav-bar/>
 
-      <router-link to="/">Home</router-link>
-      <router-link to="/about">About Us</router-link>
+     
+
+     
+      
       <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
+
 // import Todos from './components/Todos.vue';
 // import AddTodo from './components/AddTodo.vue';
 // import FilterTodos  from './components/FilterToDos.vue';
@@ -28,10 +32,12 @@
 //import Resetform from './components/Resetform.vue'
 // import HomePage from './components/Homepage.vue'
 // import Aboutus from './components/Aboutus.vue'
+import NavBar  from './components/NavBar.vue'
 
 export default {
   name: "App",
   components: {
+    NavBar
     // Todos,
     // AddTodo,
     // FilterTodos
