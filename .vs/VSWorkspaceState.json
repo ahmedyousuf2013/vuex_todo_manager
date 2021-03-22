@@ -2,7 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\components"
+    "\\src\\assets",
+    "\\src\\components",
+    "\\src\\store"
   ],
+  "SelectedNode": "\\src\\components\\Resetform.vue",
   "PreviewInSolutionExplorer": false
 }
