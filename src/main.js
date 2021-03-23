@@ -18,7 +18,7 @@ const router = new VueRouter({
 })
 router.beforeEach((tor, from, next)=>{
   
-  console.log("router :before each")
+  //console.log("router :before each")
   next();
 
 })

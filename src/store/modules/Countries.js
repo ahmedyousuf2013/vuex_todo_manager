@@ -8,9 +8,10 @@ const state = {
 const getters = { allCountries: (state) => state.countries };
 const actions = {
 
-    async fetchCountries({ commit }) {
+    async fetchCountries({ commit }, pagingobj) {
 
-        const response = await axios.get('https://localhost:44372/api/countries/get')
+    // console.log(pagingobj);
+        const response = await axios.get(`https://localhost:44372/api/countries/get?skip=${pagingobj.skip}&pageSize=${pagingobj.take}`)
 
         commit('setCountries', response.data);
        // console.log(response.data);

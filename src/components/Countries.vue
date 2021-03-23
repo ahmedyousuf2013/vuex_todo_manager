@@ -3,6 +3,7 @@
 <template>
   <!-- https://www.telerik.com/kendo-vue-ui/components/grid/editing/editing-inline/ -->
   <!-- https://stackblitz.com/run/?file=src/main.vue -->
+  <!-- https://www.telerik.com/kendo-vue-ui/components/grid/paging/ -->
   <Grid
     ref="grid"
     :style="{ height: '440px' }"
@@ -62,7 +63,7 @@ export default {
       pageable: true,
       gridData: [],
       skip: 0,
-      take: 10,
+      take: 5,
       total: 100,
       updatedData: [],
       editID: null,
@@ -89,7 +90,9 @@ export default {
     },
   },
   created: function () {
-    this.fetchCountries();
+    ////console.log('take'+this.take)
+
+    this.fetchCountries(1);
     this.updatedData = this.allCountries;
 
     this.getData();
@@ -117,8 +120,6 @@ export default {
       //  const newproducts = this.gridData.slice();
 
       this.gridData.splice(0, 0, dataItem);
-
-      
     },
     edit: function (e) {
       let index = this.gridData.findIndex((p) => p.id === e.dataItem.id);
@@ -162,7 +163,7 @@ export default {
 
       if (remove) {
         data = data.splice(index, 1);
-         this.DeleteCountry(item.Id);
+        this.DeleteCountry(item.Id);
       }
       if (!remove) {
         if (item.Id > 0) {
@@ -174,16 +175,16 @@ export default {
       /////////////////
       this.fetchCountries();
 
-    this.updatedData = this.allCountries;
-    console.log(this.updatedData);
+      this.updatedData = this.allCountries;
+      console.log(this.updatedData);
 
-    this.getData();
+      this.getData();
 
       return data[index];
     },
     cancel(e) {
       if (e.dataItem.id) {
-        let index = this.gridData.findIndex((p) => p.id === e.dataItem.id);
+        let index = this.gridData.findIndex((p) => p.id === e.dataItem.Id);
         let updateDataIndex = this.updatedData.findIndex(
           (p) => p.id === e.dataItem.id
         );
@@ -215,12 +216,21 @@ export default {
       this.getData();
     },
     getData: function () {
-      this.gridData = process(this.updatedData, {
-        take: this.take,
+      this.fetchCountries({
         skip: this.skip,
-        sort: this.sort,
-        filter: this.filter,
-      }).data;
+        take: this.take,
+      });
+
+      this.gridData = this.allCountries;
+      //console.log(this.gridData);
+      this.total = this.allCountries.length;
+
+      //   this.gridData = process(this.updatedData, {
+      //     take: this.take,
+      //     skip: this.skip,
+      //     sort: this.sort,
+      //     filter: this.filter,
+      //   }).data;
 
       this.total = process(this.updatedData, {
         filter: this.filter,
