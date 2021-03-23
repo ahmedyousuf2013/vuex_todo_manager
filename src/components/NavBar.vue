@@ -19,6 +19,9 @@
        <li class="nav-item">
           <router-link  class="nav-link" to="/totosgrid">Todos Grid</router-link>
        </li>
+        <li class="nav-item">
+          <router-link  class="nav-link" to="/countries">Countries</router-link>
+       </li>
       </ul>
         
 </template>
