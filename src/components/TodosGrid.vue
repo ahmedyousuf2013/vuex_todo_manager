@@ -74,14 +74,15 @@ export default {
           title: "User Id",
           width: "80px",
         },
-        { field: "id", title: "ID" },
+        { field: "id", title: "ID", editable: false },
         { field: "title", filter: "numeric", title: "Title" },
         {
           field: "completed",
           title: "Completed",
-          filter: "numeric",
+          editor: "boolean",
           width: "200px",
-        }
+        },
+        { cell: "myTemplate", filterable: false, width: "210px" },
       ],
     };
   },
@@ -93,13 +94,12 @@ export default {
   },
   created: function () {
     this.fetchTodos();
-    console.log(this.allTodos);
-      this.updatedData =this.allTodos
+    this.updatedData = this.allTodos;
 
     this.getData();
   },
   methods: {
-    ...mapActions(["fetchTodos"]),
+    ...mapActions(["fetchTodos", "UpdateTodo","DeleteToDo"]),
     itemChange: function (e) {
       if (e.dataItem.ProductID) {
         let index = this.gridData.findIndex(
@@ -120,15 +120,17 @@ export default {
     },
     edit: function (e) {
       let index = this.gridData.findIndex(
-        (p) => p.ProductID === e.dataItem.ProductID
+        (p) => p.id === e.dataItem.id
       );
       let updated = Object.assign({}, this.gridData[index], { inEdit: true });
       this.gridData.splice(index, 1, updated);
     },
     save: function (e) {
+
       let index = this.gridData.findIndex(
-        (p) => p.ProductID === e.dataItem.ProductID
+        (p) => p.id === e.dataItem.id
       );
+      
       let item = this.gridData[index];
       let updated = Object.assign(this.update(this.gridData.slice(), item), {
         inEdit: undefined,
@@ -140,9 +142,11 @@ export default {
       this.updatedData.splice(updateDataIndex, 1, updated);
     },
     update(data, item, remove) {
+
       let updated;
+    
       let index = data.findIndex(
-        (p) => item.ProductID && p.ProductID === item.ProductID
+        x => x.id === item.id
       );
       if (index >= 0) {
         updated = Object.assign({}, item);
@@ -150,27 +154,36 @@ export default {
       } else {
         let id = 1;
         this.updatedData.forEach((p) => {
-          if (p.ProductID) {
-            id = Math.max(p.ProductID + 1, id);
+          if (p.id) {
+            id = Math.max(p.id + 1, id);
           }
         });
-        updated = Object.assign({}, item, { ProductID: id });
+        updated = Object.assign({}, item, { id: id });
         data.unshift(updated);
         index = 0;
       }
 
       if (remove) {
         data = data.splice(index, 1);
+        this.DeleteToDo(item.id);
       }
+
+       const updTodo = {
+        id: item.id,
+        title: item.title,
+        completed: !item.completed
+      };
+      this.UpdateTodo(updTodo);
+
       return data[index];
     },
     cancel(e) {
-      if (e.dataItem.ProductID) {
+      if (e.dataItem.id) {
         let index = this.gridData.findIndex(
-          (p) => p.ProductID === e.dataItem.ProductID
+          (p) => p.id=== e.dataItem.id
         );
         let updateDataIndex = this.updatedData.findIndex(
-          (p) => p.ProductID === e.dataItem.ProductID
+          (p) => p.id === e.dataItem.id
         );
         let updated = Object.assign(this.updatedData[updateDataIndex], {
           inEdit: undefined,

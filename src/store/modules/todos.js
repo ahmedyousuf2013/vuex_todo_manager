@@ -13,7 +13,7 @@ const actions = {
         const response = await axios.get('https://jsonplaceholder.typicode.com/todos')
 
         commit('setTodos', response.data);
-        console.log(response.data);
+       // console.log(response.data);
     },
 
     async AddTodo({

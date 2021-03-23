@@ -12,10 +12,7 @@
         </li>
          <li class="nav-item">
           <router-link  class="nav-link" to="/users">Users</router-link>
-        </li>
-         <li class="nav-item">
-          <router-link  class="nav-link" to="/products">Products</router-link>
-       </li>
+     
        <li class="nav-item">
           <router-link  class="nav-link" to="/totos">Todos</router-link>
        </li>
