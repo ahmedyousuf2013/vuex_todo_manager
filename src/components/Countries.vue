@@ -92,7 +92,6 @@ export default {
   created: function () {
     ////console.log('take'+this.take)
 
-    this.fetchCountries(1);
     this.updatedData = this.allCountries;
 
     this.getData();

@@ -9,6 +9,7 @@ import UsersViewpage from './components/Users/UsersViewpage.vue'
 import NotFound from './components/NotFound.vue'
 import Products from './components/Products.vue'
 import Countries from './components/Countries.vue'
+import CountriesGrid from './components/CountriesGrid.vue'
 import Todos from './components/Todos.vue'
 import TodosGrid from './components/TodosGrid.vue'
 
@@ -18,6 +19,7 @@ const routes= [{ path: "/", component: HomePage , name:"home"},
   { path: "/posts", component: PostsPage},
   { path: "/products", component: Products},
   { path: "/countries", component: Countries},
+  { path: "/countriesgrid", component: CountriesGrid},
   { path: "/totos", component: Todos},
   { path: "/totosgrid", component: TodosGrid},
   { path: "/users", component: UsersPage , children:[
