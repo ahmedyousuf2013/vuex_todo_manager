@@ -3,6 +3,7 @@
 <template>
   <!-- https://www.telerik.com/kendo-vue-ui/components/grid/editing/editing-inline/ -->
   <!-- https://stackblitz.com/run/?file=src/main.vue -->
+  <!-- https://www.telerik.com/kendo-vue-ui/components/grid/paging/ -->
   <Grid
     ref="grid"
     :style="{ height: '440px' }"
@@ -62,49 +63,50 @@ export default {
       pageable: true,
       gridData: [],
       skip: 0,
-      take: 10,
+      take: 5,
       total: 100,
       updatedData: [],
       editID: null,
       columns: [
         {
-          field: "userId",
+          field: "Id",
           filterable: false,
           editable: false,
-          title: "User Id",
+          title: "ID",
           width: "80px",
         },
-        { field: "id", title: "ID", editable: false },
-        { field: "title", filter: "numeric", title: "Title" },
-        {
-          field: "completed",
-          title: "Completed",
-          editor: "boolean",
-          width: "200px",
-        },
+        { field: "Name", title: "Name" },
+        { field: "Description", title: "Description" },
+        { field: "Skore", filter: "numeric", title: "Skore" },
+        { field: "Ts", title: "ts", editable: false },
         { cell: "myTemplate", filterable: false, width: "210px" },
       ],
     };
   },
   computed: {
-    ...mapGetters(["allTodos"]),
+    ...mapGetters(["allCountries"]),
     hasItemsInEdit() {
       return this.gridData.filter((p) => p.inEdit).length > 0;
     },
   },
   created: function () {
-    this.fetchTodos();
-    this.updatedData = this.allTodos;
+    ////console.log('take'+this.take)
+
+    this.fetchCountries(1);
+    this.updatedData = this.allCountries;
 
     this.getData();
   },
   methods: {
-    ...mapActions(["fetchTodos", "UpdateTodo","DeleteToDo"]),
+    ...mapActions([
+      "fetchCountries",
+      "AddCountry",
+      "UpdateCountry",
+      "DeleteCountry",
+    ]),
     itemChange: function (e) {
-      if (e.dataItem.ProductID) {
-        let index = this.gridData.findIndex(
-          (p) => p.ProductID === e.dataItem.ProductID
-        );
+      if (e.dataItem.Id) {
+        let index = this.gridData.findIndex((x) => x.Id === e.dataItem.Id);
         let updated = Object.assign({}, this.gridData[index], {
           [e.field]: e.value,
         });
@@ -116,38 +118,34 @@ export default {
     insert() {
       const dataItem = { inEdit: true };
       //  const newproducts = this.gridData.slice();
+
       this.gridData.splice(0, 0, dataItem);
     },
     edit: function (e) {
-      let index = this.gridData.findIndex(
-        (p) => p.id === e.dataItem.id
-      );
+      let index = this.gridData.findIndex((p) => p.id === e.dataItem.id);
       let updated = Object.assign({}, this.gridData[index], { inEdit: true });
       this.gridData.splice(index, 1, updated);
     },
     save: function (e) {
+      console.log("saving");
+      let index = this.gridData.findIndex((p) => p.id === e.dataItem.id);
 
-      let index = this.gridData.findIndex(
-        (p) => p.id === e.dataItem.id
-      );
-      
       let item = this.gridData[index];
       let updated = Object.assign(this.update(this.gridData.slice(), item), {
         inEdit: undefined,
       });
       this.gridData.splice(index, 1, updated);
       let updateDataIndex = this.updatedData.findIndex(
-        (p) => p.ProductID === e.dataItem.ProductID
+        (p) => p.Id === e.dataItem.Id
       );
       this.updatedData.splice(updateDataIndex, 1, updated);
     },
     update(data, item, remove) {
-
       let updated;
-    
-      let index = data.findIndex(
-        x => x.id === item.id
-      );
+      console.log("data is" + data);
+      console.log("index is " + index);
+
+      let index = data.findIndex((x) => x.Id === item.Id);
       if (index >= 0) {
         updated = Object.assign({}, item);
         data[index] = updated;
@@ -165,23 +163,28 @@ export default {
 
       if (remove) {
         data = data.splice(index, 1);
-        this.DeleteToDo(item.id);
+        this.DeleteCountry(item.Id);
       }
+      if (!remove) {
+        if (item.Id > 0) {
+          this.UpdateCountry(item);
+        } else {
+          this.AddCountry(item);
+        }
+      }
+      /////////////////
+      this.fetchCountries();
 
-       const updTodo = {
-        id: item.id,
-        title: item.title,
-        completed: !item.completed
-      };
-      this.UpdateTodo(updTodo);
+      this.updatedData = this.allCountries;
+      console.log(this.updatedData);
+
+      this.getData();
 
       return data[index];
     },
     cancel(e) {
       if (e.dataItem.id) {
-        let index = this.gridData.findIndex(
-          (p) => p.id=== e.dataItem.id
-        );
+        let index = this.gridData.findIndex((p) => p.id === e.dataItem.Id);
         let updateDataIndex = this.updatedData.findIndex(
           (p) => p.id === e.dataItem.id
         );
@@ -213,12 +216,21 @@ export default {
       this.getData();
     },
     getData: function () {
-      this.gridData = process(this.updatedData, {
-        take: this.take,
+      this.fetchCountries({
         skip: this.skip,
-        sort: this.sort,
-        filter: this.filter,
-      }).data;
+        take: this.take,
+      });
+
+      this.gridData = this.allCountries;
+      //console.log(this.gridData);
+      this.total = this.allCountries.length;
+
+      //   this.gridData = process(this.updatedData, {
+      //     take: this.take,
+      //     skip: this.skip,
+      //     sort: this.sort,
+      //     filter: this.filter,
+      //   }).data;
 
       this.total = process(this.updatedData, {
         filter: this.filter,
