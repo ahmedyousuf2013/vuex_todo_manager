@@ -69,6 +69,7 @@
 import { DataSource } from "@progress/kendo-datasource-vue-wrapper";
 import { Grid, GridColumn } from "@progress/kendo-grid-vue-wrapper";
 import  CountryDialog  from "./CountryDialog";
+import { mapActions } from "vuex";
 
 import { CommandNewCell } from "./CommandNewCell.vue";
 import { GridToolbar } from "@progress/kendo-vue-grid";
@@ -90,6 +91,10 @@ export default {
     };
   },
   methods: {
+
+     ...mapActions([
+      "AddCountry","UpdateCountry"
+    ]),
     edit(dataItem) {
       this.countryInEdit = dataItem;
     },
@@ -100,24 +105,26 @@ export default {
       console.log(dataItem);
     },
     save() {
-      // const dataItem = this.countryInEdit ;
-      // const products = this.products.slice();
-      // const isNewProduct = dataItem.ProductID === undefined;
+      const dataItem = this.countryInEdit ;
+    //   const products = this.products.slice();
+      const isNewCounty = dataItem.Id === undefined;
 
-      // if (isNewProduct) {
-      //   products.unshift(this.newProduct(dataItem));
-      // } else {
-      //   const index = products.findIndex(
-      //     (p) => p.ProductID === dataItem.ProductID
-      //   );
-      //   products.splice(index, 1, dataItem);
-      // }
+      if (isNewCounty ) {
+        this.AddCountry(this.countryInEdit);
+      } else {
+
+        this.UpdateCountry(this.countryInEdit);
+        // const index = products.findIndex(
+        //   (p) => p.ProductID === dataItem.ProductID
+        // );
+        //products.splice(index, 1, dataItem);
+      }
 
       // this.products = products;
-      // this.productInEdit = undefined;
+     this.countryInEdit  = undefined;
     },
     cancel() {
-      this.productInEdit = undefined;
+      this.countryInEdit = undefined;
     },
     insert() {
       this.countryInEdit = {};

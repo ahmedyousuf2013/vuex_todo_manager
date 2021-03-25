@@ -22,7 +22,7 @@ export default {
         field: String,
         dataItem: Object,
         format: String,
-        className: String,
+        className: String, 
         columnIndex: Number,
         columnsCount: Number,
         rowType: String,
