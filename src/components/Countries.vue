@@ -27,8 +27,8 @@
         @cancel="cancel"
       />
     </template>
-    <grid-toolbar>
-      <button title="Add new" class="k-button k-primary" @click="insert">
+    <GridToolbar>
+       <button title="Add new" class="k-button k-primary" @click="insert">
         Add new
       </button>
       <button
@@ -39,7 +39,8 @@
       >
         Cancel current changes
       </button>
-    </grid-toolbar>
+      </GridToolbar>
+   
     <grid-norecords> There is no data available custom </grid-norecords>
   </Grid>
 </template>
@@ -52,7 +53,7 @@ import CommandCell from "./CommandCell";
 export default {
   components: {
     Grid: Grid,
-    "grid-toolbar": GridToolbar,
+     GridToolbar:GridToolbar,
     "grid-norecords": GridNoRecords,
     custom: CommandCell,
   },
