@@ -22,6 +22,9 @@
         <li class="nav-item">
           <router-link  class="nav-link" to="/countries">Countries</router-link>
        </li>
+       <li class="nav-item">
+          <router-link  class="nav-link" to="/countriesgrid">Countries grid</router-link>
+       </li>
       </ul>
         
 </template>
