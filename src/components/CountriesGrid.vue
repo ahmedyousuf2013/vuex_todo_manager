@@ -59,15 +59,17 @@
         width="250px"
       ></grid-column>
     </grid>
-<dialog-container v-if="countryInEdit" :data-item="countryInEdit" >
-        </dialog-container>
+    <country-Dialog   v-if="countryInEdit" :data-item="countryInEdit" @save="save" @cancel="cancel"> </country-Dialog>
   </div>
 </template>
+
+
 
 <script>
 import { DataSource } from "@progress/kendo-datasource-vue-wrapper";
 import { Grid, GridColumn } from "@progress/kendo-grid-vue-wrapper";
-import { DialogContainer } from "./DialogContainer.vue";
+import  CountryDialog  from "./CountryDialog";
+
 import { CommandNewCell } from "./CommandNewCell.vue";
 import { GridToolbar } from "@progress/kendo-vue-grid";
 
@@ -75,7 +77,7 @@ export default {
   name: "App",
   components: {
     grid: Grid,
-    "dialog-container":DialogContainer,
+    'country-Dialog': CountryDialog,
     "grid-column": GridColumn,
     datasource: DataSource,
     "grid-toolbar": GridToolbar,
@@ -91,6 +93,32 @@ export default {
     edit(dataItem) {
       this.countryInEdit = dataItem;
     },
+    remove(dataItem) {
+      // this.products = this.products.filter(
+      //   (p) => p.ProductID !== dataItem.ProductID
+      // );
+      console.log(dataItem);
+    },
+    save() {
+      // const dataItem = this.countryInEdit ;
+      // const products = this.products.slice();
+      // const isNewProduct = dataItem.ProductID === undefined;
+
+      // if (isNewProduct) {
+      //   products.unshift(this.newProduct(dataItem));
+      // } else {
+      //   const index = products.findIndex(
+      //     (p) => p.ProductID === dataItem.ProductID
+      //   );
+      //   products.splice(index, 1, dataItem);
+      // }
+
+      // this.products = products;
+      // this.productInEdit = undefined;
+    },
+    cancel() {
+      this.productInEdit = undefined;
+    },
     insert() {
       this.countryInEdit = {};
     },
@@ -102,6 +130,22 @@ export default {
     },
     dialogTitle() {
       return `${this.countryInEdit.Id === undefined ? "Add" : "Edit"} Country`;
+    },
+    newProduct(source) {
+      console.log(source);
+      // const id =
+      //   this.products.reduce(
+      //     (acc, current) => Math.max(acc, current.ProductID || 0),
+      //     0
+      //   ) + 1;
+      // const newProduct = {
+      //   ProductID: id,
+      //   ProductName: "",
+      //   UnitsInStock: 0,
+      //   Discontinued: false,
+      // };
+
+      // return Object.assign(newProduct, source);
     },
   },
 };

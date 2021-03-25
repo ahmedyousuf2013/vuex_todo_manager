@@ -20,15 +20,17 @@
             There is no data available custom
         </grid-norecords>
         </Grid>
-        <dialog-container v-if="productInEdit" :data-item="productInEdit" @save="save" @cancel="cancel">
+        <dialog-container
+         v-if="productInEdit" :data-item="productInEdit" @save="save" @cancel="cancel"
+         >
         </dialog-container>
-    </div>
+    </div> 
 </template>
 <script>
 import { Grid, GridToolbar, GridNoRecords } from '@progress/kendo-vue-grid';
 import { sampleProducts } from './data';
 import DialogContainer from './DialogContainer';
-import CommandCell from './CommandCell';
+import CommandNewCell from './CommandNewCell';
 
 export default {
     components: {
@@ -36,8 +38,9 @@ export default {
         'grid-toolbar': GridToolbar,
         'grid-norecords': GridNoRecords,
         'dialog-container': DialogContainer,
-         'custom': CommandCell,
-    },
+        'custom': CommandNewCell,
+    }
+    ,
     data: function () {
         return {
             products: sampleProducts.slice(0, 7),

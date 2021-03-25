@@ -43,6 +43,9 @@
    
     <grid-norecords> There is no data available custom </grid-norecords>
   </Grid>
+
+
+
 </template>
 <script>
 import { Grid, GridToolbar, GridNoRecords } from "@progress/kendo-vue-grid";
@@ -50,7 +53,9 @@ import { process } from "@progress/kendo-data-query";
 import { mapGetters, mapActions } from "vuex";
 import CommandCell from "./CommandCell";
 
+
 export default {
+  name:"country-Grid",
   components: {
     Grid: Grid,
      GridToolbar:GridToolbar,
