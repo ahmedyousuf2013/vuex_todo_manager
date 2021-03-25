@@ -18,8 +18,6 @@ export default {
         methods: mapActions(["filterToDods"]) 
 
 
-
-
 };
 </script>
 <style >
