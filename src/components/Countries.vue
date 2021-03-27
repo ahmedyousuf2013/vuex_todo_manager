@@ -27,8 +27,8 @@
         @cancel="cancel"
       />
     </template>
-    <grid-toolbar>
-      <button title="Add new" class="k-button k-primary" @click="insert">
+    <GridToolbar>
+       <button title="Add new" class="k-button k-primary" @click="insert">
         Add new
       </button>
       <button
@@ -39,9 +39,13 @@
       >
         Cancel current changes
       </button>
-    </grid-toolbar>
+      </GridToolbar>
+   
     <grid-norecords> There is no data available custom </grid-norecords>
   </Grid>
+
+
+
 </template>
 <script>
 import { Grid, GridToolbar, GridNoRecords } from "@progress/kendo-vue-grid";
@@ -49,10 +53,12 @@ import { process } from "@progress/kendo-data-query";
 import { mapGetters, mapActions } from "vuex";
 import CommandCell from "./CommandCell";
 
+
 export default {
+  name:"country-Grid",
   components: {
     Grid: Grid,
-    "grid-toolbar": GridToolbar,
+     GridToolbar:GridToolbar,
     "grid-norecords": GridNoRecords,
     custom: CommandCell,
   },

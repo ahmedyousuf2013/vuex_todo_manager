@@ -12,6 +12,7 @@ import Countries from './components/Countries.vue'
 import CountriesGrid from './components/CountriesGrid.vue'
 import Todos from './components/Todos.vue'
 import TodosGrid from './components/TodosGrid.vue'
+import TestGrid from './components/TestGrid.vue'
 
 const routes= [{ path: "/", component: HomePage , name:"home"},
   { path: "/about", component: Aboutus },
@@ -22,6 +23,7 @@ const routes= [{ path: "/", component: HomePage , name:"home"},
   { path: "/countriesgrid", component: CountriesGrid},
   { path: "/totos", component: Todos},
   { path: "/totosgrid", component: TodosGrid},
+  { path: "/TestGrid", component: TestGrid},
   { path: "/users", component: UsersPage , children:[
     {path: "" ,component:UsersHomePage },
     {path: ":id" ,component:UsersViewpage , props:true},
